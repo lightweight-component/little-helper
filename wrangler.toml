@@ -1,0 +1,27 @@
+name = "my-app"
+compatibility_date = "2023-12-01"
+node_compat = true
+
+[vars]
+MY_VAR = "my-variable"
+SHORT_URL_DEFAULT_LEN = 9
+
+[[kv_namespaces]]
+binding = "LINKS"
+id = "13d753851b494c6a93327d5fc30cdf7d"
+
+[[kv_namespaces]]
+binding = "SHORT_URL_KV"
+id = "13d753851b494c6a93327d5fc30cdf7d"
+
+[[r2_buckets]]
+binding = "MY_BUCKET"
+bucket_name = "my-bucket"
+
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "my-database"
+# database_id = ""
+
+# [ai]
+# binding = "AI"
