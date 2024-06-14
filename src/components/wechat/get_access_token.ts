@@ -13,7 +13,6 @@ const app = new Hono<{ Bindings: Bindings }>();
 
 // 微信小程序的 AppID 和 AppSecret
 const appId: string = 'wx9b32cc6efd1f45b8';
-const appSecret: string = 'afa62b4682e4d8454d05b154c266e7de';
 
 // 用于获取 access token 的API URL
 const TOKEN_API: string = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${appSecret}`;

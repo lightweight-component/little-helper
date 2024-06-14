@@ -6,7 +6,7 @@ import { SendEmail } from "../send_email/type";
 
 const RESEND_EMAIL_API: string = 'https://api.resend.com/emails';
 
-async function sendEmail(mail: SendEmail): Promise<void> {
+async function sendEmail(mail: SendEmail, accessToken: string): Promise<void> {
     const json = {
         "from": mail.senderName ? `${mail.senderName} <${mail.senderEmail}>` : mail.senderEmail,
         "to": [mail.to],
@@ -20,7 +20,7 @@ async function sendEmail(mail: SendEmail): Promise<void> {
     const response: Response = await fetch(RESEND_EMAIL_API, {
         method: 'POST',
         headers: {
-            Authorization: 'Bearer re_2QJwMC4S_AbncsahN6qrqPx7ezHXno7Ho',
+            Authorization: 'Bearer ' + accessToken,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(json),
@@ -31,7 +31,11 @@ async function sendEmail(mail: SendEmail): Promise<void> {
         throw new Error(response.statusText);
 }
 
-const app: Hono = new Hono();
+type Bindings = {
+    RESEND_ACCESS_TOKEN: string
+}
+
+const app = new Hono<{ Bindings: Bindings }>();
 
 app.post('/', async c => {
     const { req } = c;
@@ -43,7 +47,7 @@ app.post('/', async c => {
         to: data.to,
         subject: data.subject,
         body: data.body
-    });
+    }, c.env.RESEND_ACCESS_TOKEN);
 
     return c.json({ ok: true });
 });
